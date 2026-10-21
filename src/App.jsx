@@ -1,4 +1,5 @@
-import React from 'react';
+
+import React, { useEffect, useState } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 
 import { StoreProvider } from './context/StoreContext';
@@ -6,6 +7,7 @@ import { StoreProvider } from './context/StoreContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
+import Loading from './components/Loading';
 
 import Home from './pages/Home';
 import Shop from './pages/Shop';
@@ -23,18 +25,33 @@ import Admin from './pages/Admin';
 
 function Layout() {
   const location = useLocation();
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Hide Header and Footer on admin dashboard and authentication pages
+  // Show the loading screen when the website first opens.
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      setIsLoading(false);
+    }, 2200);
+
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  // Hide the Header and Footer on admin and authentication pages.
   const hideLayout =
     location.pathname.startsWith('/admin') ||
     location.pathname === '/login' ||
     location.pathname === '/register';
 
+  // Display the bouncing-ball loading animation.
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <>
       <ScrollToTop />
 
-      {/* Header */}
+      {/* Website Header */}
       {!hideLayout && <Header />}
 
       {/* Application Routes */}
@@ -43,7 +60,10 @@ function Layout() {
 
         <Route path="/shop" element={<Shop />} />
 
-        <Route path="/product/:id" element={<ProductDetails />} />
+        <Route
+          path="/product/:id"
+          element={<ProductDetails />}
+        />
 
         <Route path="/cart" element={<Cart />} />
 
@@ -51,9 +71,10 @@ function Layout() {
 
         <Route path="/orders" element={<Orders />} />
 
-        <Route path="/orders/:id" element={<OrderDetails />} />
-        
-        <Route path="/contact" element={<Contact />} />
+        <Route
+          path="/orders/:id"
+          element={<OrderDetails />}
+        />
 
         <Route
           path="/order-success/:id"
@@ -62,7 +83,9 @@ function Layout() {
 
         <Route path="/about" element={<About />} />
 
-        {/* Customer and Admin Login */}
+        <Route path="/contact" element={<Contact />} />
+
+        {/* Customer Login */}
         <Route path="/login" element={<Login />} />
 
         {/* Customer Registration */}
@@ -75,7 +98,7 @@ function Layout() {
         <Route path="*" element={<Home />} />
       </Routes>
 
-      {/* Footer */}
+      {/* Website Footer */}
       {!hideLayout && <Footer />}
     </>
   );
