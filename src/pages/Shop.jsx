@@ -54,7 +54,7 @@ export default function Shop() {
                     </i>
                 </h1>
 
-                <p className="mt-4 max-w-2xl text-sm leading-7 text-[#756763] sm:text-base">
+                <p className="mt-4 max-w-2xl text-sm leading-7 text-[black] sm:text-base">
                     Everyday essentials. Weekend favourites. Gear up for whatever
                     gets you moving.
                 </p>
@@ -71,7 +71,7 @@ export default function Shop() {
                             onChange={(e) => setQuery(e.target.value)}
                             placeholder="Search gear, category..."
                             aria-label="Search products"
-                            className="w-full bg-transparent py-3 text-sm text-[#302322] outline-none placeholder:text-[#958783]"
+                            className="w-full bg-transparent py-3 text-sm text-[black] outline-none placeholder:text-[#958783]"
                         />
                     </div>
 

@@ -85,14 +85,16 @@ export default function Header() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-5 lg:flex xl:gap-8">
+
+
+
+        <nav className="hidden items-center gap-6 text-2xl font-semibold lg:flex xl:gap-8">
           {links.map(([label, path]) => (
             <NavLink
               key={path}
               to={path}
               className={({ isActive }) =>
-                `nav-link whitespace-nowrap transition-colors duration-200 ${
-                  isActive ? 'active' : ''
+                `nav-link whitespace-nowrap transition-colors duration-200 ${isActive ? 'active' : ''
                 }`
               }
             >
@@ -100,6 +102,9 @@ export default function Header() {
             </NavLink>
           ))}
         </nav>
+
+
+
 
         {/* Header Actions */}
         <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
