@@ -8,6 +8,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import Loading from './components/Loading';
+import WhatsAppPopup from './components/WhatsAppPopup';
 
 import Home from './pages/Home';
 import Shop from './pages/Shop';
@@ -27,22 +28,24 @@ function Layout() {
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(true);
 
-  // Show the loading screen when the website first opens.
+  // Initial website loading screen
   useEffect(() => {
     const timer = window.setTimeout(() => {
       setIsLoading(false);
-    }, 2200);
+    }, 3000);
 
     return () => window.clearTimeout(timer);
   }, []);
 
-  // Hide the Header and Footer on admin and authentication pages.
+  // Hide header and footer on admin and authentication pages
   const hideLayout =
     location.pathname.startsWith('/admin') ||
     location.pathname === '/login' ||
     location.pathname === '/register';
 
-  // Display the bouncing-ball loading animation.
+  // Hide WhatsApp on every admin route
+  const isAdminPage = location.pathname.startsWith('/admin');
+
   if (isLoading) {
     return <Loading />;
   }
@@ -100,6 +103,9 @@ function Layout() {
 
       {/* Website Footer */}
       {!hideLayout && <Footer />}
+
+      {/* WhatsApp Popup - Bottom Right */}
+      {!isAdminPage && <WhatsAppPopup />}
     </>
   );
 }
